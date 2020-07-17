@@ -1,0 +1,62 @@
+{
+    "no1": {
+        "name": "中村海人",
+        "group": "Travis Japan",
+        "copy": "pet tiger",
+        "images": []
+    },
+    "no2": {
+        "name": "宮近海斗",
+        "group": "Travis Japan",
+        "copy": "leader tiger",
+        "images": []
+    },
+    "no3": {
+        "name": "松倉海斗",
+        "group": "Travis Japan",
+        "copy": "cute tiger",
+        "images": []
+    },
+    "no4": {
+        "name": "松田元太",
+        "group": "Travis Japan",
+        "copy": "sexy tiger",
+        "images": []
+    },
+    "no5": {
+        "name": "吉澤閑也",
+        "group": "Travis Japan",
+        "copy": "comedy tiger",
+        "images": []
+    },
+    "no6": {
+        "name": "大橋和也",
+        "group": "なにわ男子",
+        "copy": "なにわ男子のリーダー",
+        "images": []
+    },
+    "no7": {
+        "name": "西畑大吾",
+        "group": "なにわ男子",
+        "copy": "恋人にしたいJr一位",
+        "images": []
+    },
+    "no8": {
+        "name": "大西流星",
+        "group": "なにわ男子",
+        "copy": "勢いは西から愛は大西から",
+        "images": []
+    },
+    "no9": {
+        "name": "正門良規",
+        "group": "Aぇ group!",
+        "copy": "心の実家最強リアコ",
+        "images": []
+    },
+    "no10": {
+        "name": "末澤誠也",
+        "group": "Aぇ group!",
+        "copy": "Fire bird",
+        "images": []
+    }
+}
