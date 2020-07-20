@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
 
-images = sorted(glob.glob('./facenet-sample/after/*'))
+# images = sorted(glob.glob('./facenet-sample/after/*'))
 
 def entropy(vec_data):
     entropys = list()
@@ -203,7 +203,24 @@ def set_category(data, list):
     return l
 
 
+def final_answer(user_tendency):
+    with open('tendency_label.pickle', 'rb') as f:
+        label = pickle.load(f)
+    answer = []
+    for i in user_tendency:
+        tendency = [j["label"] for j in label if j["symbol"] == i["symbol"]]
+        if len(tendency) > 0:
+            l = []
+            for id in i["list"]:
+                keys = ["tendency", "id"]
+                values = [tendency[0], id]
+                l.append(dict(zip(keys, values)))
+            answer.append(l)
+    return answer
+
+
 def main():
+    # l = dataFormatting(impression)
     l = dataFormatting()
 
     df = pd.DataFrame(l, columns=["id", "vector", "category", "impression"])
@@ -225,11 +242,13 @@ def main():
     cluster_c_m = imageClustering(cluster_c, l, 4)
     cluster_d_m = imageClustering(cluster_d, l, 4)
 
+    ans = []
+    ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
+    ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
+    ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
+    ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
+    
+    return ans
 
-    print("A ", calculate_tf_icf(cluster_a_m, l))
-    print("B ", calculate_tf_icf(cluster_b_m, l))
-    print("C ", calculate_tf_icf(cluster_c_m, l))
-    print("D ", calculate_tf_icf(cluster_d_m, l))
 
-
-main()
+# print(main())

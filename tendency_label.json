@@ -1,18 +1,81 @@
-[
-{"attribute":"1","impression":"1","label":"かっこいいけどこのタイプは推しにはならないみたい"},
-{"attribute":"1","impression":"2","label":"思わずDDになっちゃうかっこよさ"},
-{"attribute":"1","impression":"4","label":"気になっているかっこいい人…"},
-{"attribute":"1","impression":"5","label":"やっぱり君はかっこいい！好き好き大好き"},
-{"attribute":"2","impression":"1","label":"かわいいタイプは推せないちゃんですね"},
-{"attribute":"2","impression":"2","label":"DDになってかわいいこも推しちゃお？"},
-{"attribute":"2","impression":"4","label":"かわいいタイプも実は密かに気になっている"},
-{"attribute":"2","impression":"5","label":"やっぱり君はかわいいよ！！！！"},
-{"attribute":"3","impression":"1","label":"セクシーな刺激強めで推せないみたい"},
-{"attribute":"3","impression":"2","label":"DD Sexy..."},
-{"attribute":"3","impression":"4","label":"セクシーな魅力が気になって眠れないでしょう"},
-{"attribute":"3","impression":"5","label":"セクシーな大本命に今日もメロメロ"},
-{"attribute":"4","impression":"1","label":"面白さも大事だけど、ね……"},
-{"attribute":"4","impression":"2","label":"面白いのも大歓迎！"},
-{"attribute":"4","impression":"4","label":"ギャグセンスも大事。気になってるなら推しちゃえ"},
-{"attribute":"4","impression":"5","label":"ギャガーな君が一番"}
+[{
+        "attribute": "1",
+        "impression": "1",
+        "label": "かっこいいけど推しにはならないみたい"
+    },
+    {
+        "attribute": "1",
+        "impression": "2",
+        "label": "思わずDDになっちゃうかっこよさ"
+    },
+    {
+        "attribute": "1",
+        "impression": "4",
+        "label": "気になっている人…"
+    },
+    {
+        "attribute": "1",
+        "impression": "5",
+        "label": "やっぱり君はかっこいい！好き好き大好き"
+    },
+    {
+        "attribute": "2",
+        "impression": "1",
+        "label": "かわいいタイプは推せないみたい"
+    },
+    {
+        "attribute": "2",
+        "impression": "2",
+        "label": "DDになってかわいいこも推しちゃお？"
+    },
+    {
+        "attribute": "2",
+        "impression": "4",
+        "label": "かわいいタイプも実は密かに気になっている"
+    },
+    {
+        "attribute": "2",
+        "impression": "5",
+        "label": "やっぱり君はかわいいよ！！！！"
+    },
+    {
+        "attribute": "3",
+        "impression": "1",
+        "label": "セクシーな刺激強めで推せないみたい"
+    },
+    {
+        "attribute": "3",
+        "impression": "2",
+        "label": "DD Sexy..."
+    },
+    {
+        "attribute": "3",
+        "impression": "4",
+        "label": "セクシーな魅力が気になって眠れないでしょう"
+    },
+    {
+        "attribute": "3",
+        "impression": "5",
+        "label": "セクシーな大本命に今日もメロメロ"
+    },
+    {
+        "attribute": "4",
+        "impression": "1",
+        "label": "面白さも大事だけど、ね……"
+    },
+    {
+        "attribute": "4",
+        "impression": "2",
+        "label": "面白いのも大歓迎！"
+    },
+    {
+        "attribute": "4",
+        "impression": "4",
+        "label": "ギャグセンスも大事。気になってるなら推しちゃえ"
+    },
+    {
+        "attribute": "4",
+        "impression": "5",
+        "label": "ギャガーな君が世界で一番"
+    }
 ]

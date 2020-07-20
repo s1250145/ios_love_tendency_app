@@ -2,6 +2,8 @@ import json, requests, pickle
 from flask import jsonify, request, Flask
 from flask_cors import CORS
 
+import cluster
+
 app = Flask(__name__)
 CORS(app)
 
@@ -19,12 +21,15 @@ def first_download():
 @app.route("/cluster", methods=['POST'])
 def start_clustering():
     impression_data = request.json["data"]
-    with open('impression.pickle', 'wb') as f:
-        pickle.dump(impression_data, f)
-    keys = ["tendency", "list"]
-    values = ["本命だょ", [1, 3, 5, 7]]
-    onedict = dict(zip(keys, values))
-    data = [onedict,onedict]
+    # data = cluster.main(impression_data)
+    data = cluster.main()
+    print(data)
+    # with open('impression.pickle', 'wb') as f:
+    #     pickle.dump(impression_data, f)
+    # keys = ["tendency", "list"]
+    # values = ["本命だょ", [1, 3, 5, 7]]
+    # onedict = dict(zip(keys, values))
+    # data = [onedict,onedict]
     # 画像のidとそれに対する印象のデータセットをjson形式で受け取る
     return jsonify(data)
 
