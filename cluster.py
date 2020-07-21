@@ -9,34 +9,6 @@ import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
 
-# images = sorted(glob.glob('./facenet-sample/after/*'))
-
-def entropy(vec_data):
-    entropys = list()
-    # count = Counter(vec_data)
-    key, count = np.unique(vec_data, return_counts=True)
-    # countall = float(np.sum(count.values()))
-    countall = len(vec_data)
-    for item in count:
-        counteach = item
-        prob = counteach/countall
-        entropyeach = -prob * np.log(prob)
-        entropys.append(entropyeach)
-    entropy = np.sum(entropys)
-    return entropy
-
-
-def splitByImpression(vec_data, impression):
-    data_xi = [[], [], [], [], []]
-    for i, vector in enumerate(vec_data):
-        data_xi[impression[i]-1].append(vector)
-    return data_xi
-
-
-def informationGain(h_x, h_xi, data_x, data_xi):
-    sigma = sum(h_xi)
-    return h_x-sigma*data_xi/data_x
-
 
 def dataFraming(data, cluster):
     # show pandas table
@@ -46,27 +18,6 @@ def dataFraming(data, cluster):
         cluster_category.append([i, value[0]]) 
     df = pd.DataFrame(cluster_category, columns=["id", "category"])
     return df
-
-
-def generateImageList(id):
-    image_list = []
-    for i in id:
-        image_list.append(images[i-1])
-    return image_list 
-
-
-def showImage(id):
-    l = generateImageList(id)
-    width = 35
-    height = 35
-    plt.figure(figsize=(width, height))
-    for i in range(len(l)):
-        plt.subplot(5, 5, i+1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(plt.imread(l[i], 0))
-    plt.show()
 
 
 def averageSplits(id, values, name):
@@ -82,11 +33,11 @@ def averageSplits(id, values, name):
     return l1, l2
 
 
-def dataFormatting():
+def dataFormatting(impression):
     with open('imagelist.pickle', 'rb') as f:
         image_list = pickle.load(f) # all person's image
-    with open('impression.pickle', 'rb') as g:
-        impression = pickle.load(g) # id, impression_value
+    # with open('impression.pickle', 'rb') as g:
+    #     impression = pickle.load(g) # id, impression_value
     with open('person_catego.json', 'r') as b:
         category = json.load(b) # all person's category
 
@@ -99,37 +50,29 @@ def dataFormatting():
     return l
 
 
-def showImageOnScatter(x, y, image_path, ax=None, zoom=1):
-    if ax is None:
-        ax = plt.gca()
-
-    artists = []
-    for x0, y0, image in zip(x, y, image_path):
-        image = plt.imread(image, 0)
-        im = OffsetImage(image, zoom=zoom)
-        ab = AnnotationBbox(im, (x0, y0), xycoords='data', frameon=False)
-        artists.append(ax.add_artist(ab))
-    return artists
-
-
 def elbow(x):
     l = []
-    for i in range(1,11):
+    for i in range(1,len(x)):
         km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
         km.fit(x)
         l.append(km.inertia_)
-    plt.plot(range(1,11), l, marker="o")
-    plt.xlabel("Number of clusters")
-    plt.ylabel("Distortion")
-    plt.show()
+        
+    elbow_k = 0
+    for s in range(1, len(l)):
+        if l[s-1]-l[s] < 0.1:
+            elbow_k = s-1
+            break
+        
+    return elbow_k
+    
 
-
-def imageClustering(cluster, data, k):
+def imageClustering(cluster, data):
     l = []
     for i in cluster:
         v = [j[1] for j in data if j[0] == i]
         l.append(v[0])
     vector = np.asarray(l)
+    k = elbow(vector)
     kmeans = KMeans(n_clusters=k).fit(vector)
     label = kmeans.predict(vector)
     result = []
@@ -219,12 +162,11 @@ def final_answer(user_tendency):
     return answer
 
 
-def main():
-    # l = dataFormatting(impression)
-    l = dataFormatting()
+def main(impression):
+    l = dataFormatting(impression)
+    # l = dataFormatting()
 
     df = pd.DataFrame(l, columns=["id", "vector", "category", "impression"])
-    # print(df)
 
     data_x = np.asarray(l)
     impression_avg_a, impression_avg_b = averageSplits(data_x[:, 0].tolist(), data_x[:, 3].tolist(), "impression")
@@ -237,10 +179,10 @@ def main():
     cluster_c, cluster_d = averageSplits(impression_avg_b, category_b, "clusterB")
 
     # Get the middle level cluster
-    cluster_a_m = imageClustering(cluster_a, l, 4)
-    cluster_b_m = imageClustering(cluster_b, l, 4)
-    cluster_c_m = imageClustering(cluster_c, l, 4)
-    cluster_d_m = imageClustering(cluster_d, l, 4)
+    cluster_a_m = imageClustering(cluster_a, l)
+    cluster_b_m = imageClustering(cluster_b, l)
+    cluster_c_m = imageClustering(cluster_c, l)
+    cluster_d_m = imageClustering(cluster_d, l)
 
     ans = []
     ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
@@ -249,6 +191,3 @@ def main():
     ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
     
     return ans
-
-
-# print(main())

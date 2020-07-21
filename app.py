@@ -15,21 +15,15 @@ def hello():
 
 @app.route("/", methods=['GET'])
 def first_download():
-    # 画像と名前等の基本データセットをjson形式で送信
+    # 基本データセットをjson形式で送信
     return jsonify(data)
 
 @app.route("/cluster", methods=['POST'])
 def start_clustering():
-    impression_data = request.json["data"]
-    # data = cluster.main(impression_data)
-    data = cluster.main()
-    # with open('impression.pickle', 'wb') as f:
-    #     pickle.dump(impression_data, f)
-    # keys = ["tendency", "list"]
-    # values = ["本命だょ", [1, 3, 5, 7]]
-    # onedict = dict(zip(keys, values))
-    # data = [onedict,onedict]
     # 画像のidとそれに対する印象のデータセットをjson形式で受け取る
+    impression_data = request.json["data"]
+    data = cluster.main(impression_data)
+    # data = cluster.main()
     return jsonify(data)
 
 if __name__ == "__main__":
