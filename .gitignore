@@ -2,7 +2,7 @@
 google-cloud-sdk/
 facenet-sample/
 image/thumb/*
-__pychache__/
+__pycache__/
 
 .DS_Store
 

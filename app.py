@@ -23,7 +23,6 @@ def start_clustering():
     impression_data = request.json["data"]
     # data = cluster.main(impression_data)
     data = cluster.main()
-    print(data)
     # with open('impression.pickle', 'wb') as f:
     #     pickle.dump(impression_data, f)
     # keys = ["tendency", "list"]
