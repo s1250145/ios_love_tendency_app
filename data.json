@@ -58,5 +58,17 @@
         "group": "Aぇ group!",
         "copy": "Fire bird",
         "images": []
+    },
+    "no11": {
+        "name": "神宮寺勇太",
+        "group": "King&Prince",
+        "copy": "国民的彼氏",
+        "images": []
+    },
+    "no12": {
+        "name": "井上瑞稀",
+        "group": "HiHi Jets",
+        "copy": "HiHi Jetsが誇る美声",
+        "images": []
     }
 }

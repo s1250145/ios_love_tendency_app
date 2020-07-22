@@ -43,4 +43,4 @@ for i, file in enumerate(files):
     # print(f"{file}: {img.size} --> {resized.size}")
 
     # 保存する。
-    resized.save(f"{output_dir}/{i+1}.png")
+    resized.save(f"{output_dir}/{i}.png")

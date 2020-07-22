@@ -5,10 +5,10 @@ import numpy as np
 cascade_path = './haarcascade_frontalface_default.xml'
 faceCascade = cv2.CascadeClassifier(cascade_path)
 
-images = glob.glob('./*.png')
+images = sorted(glob.glob('./before/*.png'))
 
 print('start')
-for i in images:
+for num, i in enumerate(images):
     img = cv2.imread(i, cv2.IMREAD_COLOR)
     if img is None:
         print('No face: ', i)
@@ -21,7 +21,8 @@ for i in images:
                 y = rect[1]
                 w = rect[2]
                 h = rect[3]
-                cv2.imwrite(i, img[y:y+h, x:x+w])
+                save_dir = f'./check/{num}.png'
+                cv2.imwrite(save_dir, img[y:y+h, x:x+w])
         else:
             print('No face: ', i)
 print('finish')

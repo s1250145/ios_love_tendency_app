@@ -17,7 +17,7 @@ def download_img(list, word):
     print('save start')
     for i, src in enumerate(list):
         url = src.get('src')
-        file = open(f'{word}_{i}.png', 'wb')
+        file = open(f'./before/{word}_{i}.png', 'wb')
         file.write(urlopen(url).read())
     print('finish')
 
