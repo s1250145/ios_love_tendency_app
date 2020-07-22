@@ -23,7 +23,7 @@ def start_clustering():
     # 画像のidとそれに対する印象のデータセットをjson形式で受け取る
     impression_data = request.json["data"]
     data = cluster.main(impression_data)
-    # data = cluster.main()
+    print(data)
     return jsonify(data)
 
 if __name__ == "__main__":
