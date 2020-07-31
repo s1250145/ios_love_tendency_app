@@ -61,8 +61,7 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // cell数
-        let persons: [[Person]] = result["persons"]! as! [[Person]]
-        return persons.count
+        return (result["persons"]! as! [Person]).count
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -76,8 +75,8 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.layer.cornerRadius = 25.0
 
         let cellImage = UIImageView(frame: CGRect.zero)
-        let persons: [[Person]] = result["persons"]! as! [[Person]]
-        cellImage.image = base64ToImage(imageString: persons[indexPath.row][0].image)
+        let persons = result["persons"]! as! [Person]
+        cellImage.image = base64ToImage(imageString: persons[indexPath.row].image)
         cellImage.layer.borderWidth = 6
         cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.layer.cornerRadius = 25
@@ -85,13 +84,13 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
         cellImage.translatesAutoresizingMaskIntoConstraints = false
 
         let cellName = UILabel(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 25))
-        cellName.text = persons[indexPath.row][0].name
+        cellName.text = persons[indexPath.row].name
         cellName.font = UIFont.systemFont(ofSize: 25)
         cellName.adjustsFontSizeToFitWidth = true
         cellName.translatesAutoresizingMaskIntoConstraints = false
 
         let cellGroup = UILabel(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 15))
-        cellGroup.text = persons[indexPath.row][0].group
+        cellGroup.text = persons[indexPath.row].group
         cellGroup.font = UIFont.systemFont(ofSize: 15)
         cellGroup.adjustsFontSizeToFitWidth = true
         cellGroup.translatesAutoresizingMaskIntoConstraints = false

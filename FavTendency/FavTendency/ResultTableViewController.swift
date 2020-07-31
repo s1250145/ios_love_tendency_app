@@ -103,8 +103,8 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cellText.translatesAutoresizingMaskIntoConstraints = false
 
         let cellImage = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.7, height: cell.contentView.frame.width*0.7))
-        var persons: [[Person]] = result[indexPath.row]["persons"]! as! [[Person]]
-        cellImage.image = base64ToImage(imageString: persons[0][0].image)
+        let persons = result[indexPath.row]["persons"]! as! [Person]
+        cellImage.image = base64ToImage(imageString: persons[0].image)
         cellImage.layer.borderWidth = 6
         cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.layer.cornerRadius = cellImage.frame.width*0.15

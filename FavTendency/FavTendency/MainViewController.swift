@@ -216,12 +216,12 @@ class MainViewController: UIViewController {
             var list: [[String: Any]] = []
             for tmp in result {
                 let tendency = tmp[0]["tendency"]!
-                var tendPersons: [[Person]] = []
+                var tendPersons = [Person]()
                 for data in tmp {
                     let person = self.persons.filter {
                         $0.id == data["id"] as! Int
                     }
-                    tendPersons.append(person)
+                    tendPersons.append(person[0])
                 }
                 list.append(["tendency": tendency, "persons": tendPersons])
             }
