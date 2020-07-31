@@ -7,3 +7,31 @@ __pycache__/
 .DS_Store
 
 # https://qiita.com/inabe49/items/16ee3d9d1ce68daa9fff
+
+# Xcode
+FavTendency/build/
+FavTendency/*.pbxuser
+FavTendency/!default.pbxuser
+FavTendency/*.mode1v3
+FavTendency/!default.mode1v3
+FavTendency/*.mode2v3
+FavTendency/!default.mode2v3
+FavTendency/*.perspectivev3
+FavTendency/!default.perspectivev3
+FavTendency/xcuserdata
+FavTendency/*.xccheckout
+FavTendency/*.moved-aside
+FavTendency/DerivedData
+FavTendency/*.hmap
+FavTendency/*.ipa
+FavTendency/*.xcuserstate
+
+# CocoaPod
+FavTendency/Pods/
+FavTendency/Podfile.lock
+
+# others
+FavTendency/*.swp
+FavTendency/UserInterfaceState.xcuserstate
+FavTendency/!.gitkeep
+FavTendency/.DS_Store
