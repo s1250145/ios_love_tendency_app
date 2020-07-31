@@ -28,7 +28,7 @@ class MyAPI {
         }
     }
 
-    func clusteringResultGet(data: Any, responseClosure: @escaping([[[String:Any]]]) -> ()) {
+    func clusteringResultGet(data: Any, responseClosure: @escaping([[[String: Any]]]) -> ()) {
         let parameters = ["data": data]
         var result: [[[String: Any]]] = []
         Alamofire.request("http://127.0.0.1:8018/cluster", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
@@ -44,6 +44,24 @@ class MyAPI {
                 result.append(tmp)
             }
             responseClosure(result)
+        }
+    }
+
+    func clustering(data: Any, responseClosure: @escaping([[String: [Int]]]) -> ()) {
+        let parameters = ["data": data]
+        Alamofire.request("http://127.0.0.1:8018/clustering", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+            response in
+            guard let obj = response.result.value else { return }
+            let json = JSON(obj)
+            var arr: [[String: [Int]]] = []
+            json.forEach { (label, ids) in
+                var list: [Int] = []
+                ids.forEach { (_, v) in
+                    list.append(v.intValue)
+                }
+                arr.append([label: list])
+            }
+            responseClosure(arr)
         }
     }
 }

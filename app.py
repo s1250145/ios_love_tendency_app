@@ -23,8 +23,14 @@ def start_clustering():
     # 画像のidとそれに対する印象のデータセットをjson形式で受け取る
     impression_data = request.json["data"]
     data = cluster.main(impression_data)
-    print(data)
     return jsonify(data)
+
+@app.route("/clustering", methods=['POST'])
+def clustering():
+    impression_data = request.json["data"]
+    data = cluster.main(impression_data)
+    return jsonify(data)
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8018, debug=True)
