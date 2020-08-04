@@ -50,8 +50,8 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
             tendencyList.topAnchor.constraint(equalTo: heading.bottomAnchor, constant: 10),
             tendencyList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             tendencyList.widthAnchor.constraint(equalToConstant: view.frame.width*0.9),
-            backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
+            backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30)
         ])
     }
 
