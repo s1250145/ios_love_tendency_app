@@ -15,8 +15,8 @@ class MainViewController: UIViewController {
     let copy = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
     let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
     let impression = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
-    let finishButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
-    let nextButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
+    let nextButton = SetupObj.tabButton(title: "Next", bgColor: .white, isBorder: true)
+    let finishButton = SetupObj.tabButton(title: "Finish", bgColor: .white, isBorder: true)
     let attention = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
 
     let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
@@ -83,30 +83,15 @@ class MainViewController: UIViewController {
         impression.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(impression)
 
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.setTitleColor(UIColor.black, for: .normal)
-        nextButton.layer.borderColor = UIColor.black.cgColor
-        nextButton.layer.borderWidth = 1
-        nextButton.layer.cornerRadius = 2.5
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nextButton)
-
         nextButton.addTarget(self, action: #selector(nextButtonTapped(sender:)), for: .touchUpInside)
 
-        finishButton.setTitle("Finish", for: .normal)
-        finishButton.setTitleColor(UIColor.black, for: .normal)
-        finishButton.layer.borderColor = UIColor.black.cgColor
-        finishButton.layer.borderWidth = 1
-        finishButton.layer.cornerRadius = 2.5
-        finishButton.translatesAutoresizingMaskIntoConstraints = false
         finishButton.isEnabled = false
         if(!finishButton.isEnabled) {
             finishButton.layer.borderWidth = 0
             finishButton.backgroundColor = enableColor
         }
-
         finishButton.addTarget(self, action: #selector(finishButtonTapped(sender:)), for: .touchUpInside)
-
         view.addSubview(finishButton)
         attention.text = "一定回数やると結果を見ることができます"
         attention.font = UIFont.systemFont(ofSize: 10)

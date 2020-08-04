@@ -35,13 +35,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         resultList.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         view.addSubview(resultList)
 
-        let oneMoreButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
-        oneMoreButton.setTitle("もういっかい", for: .normal)
-        oneMoreButton.setTitleColor(UIColor.black, for: .normal)
-        oneMoreButton.layer.borderColor = UIColor.black.cgColor
-        oneMoreButton.backgroundColor = mainColor
-        oneMoreButton.layer.cornerRadius = 2.5
-        oneMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        let oneMoreButton = SetupObj.tabButton(title: "もういっかい", bgColor: mainColor, isBorder: false)
         view.addSubview(oneMoreButton)
 
         oneMoreButton.addTarget(self, action: #selector(tappedOneMoreButton(sender:)), for: .touchUpInside)

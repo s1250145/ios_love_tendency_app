@@ -54,12 +54,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         operationList.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         view.addSubview(operationList)
 
-        let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
-        startButton.setTitle("やってみる", for: .normal)
-        startButton.setTitleColor(UIColor.black, for: .normal)
-        startButton.backgroundColor = mainColor
-        startButton.layer.cornerRadius = 2.5
-        startButton.translatesAutoresizingMaskIntoConstraints = false
+        let startButton = SetupObj.tabButton(title: "やってみる", bgColor: mainColor, isBorder: false)
         view.addSubview(startButton)
 
         startButton.addTarget(self, action: #selector(startButtonTapped(sender:)), for: .touchUpInside)

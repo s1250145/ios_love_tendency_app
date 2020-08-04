@@ -15,6 +15,7 @@
 		4B3A38B3248F54A000BF303D /* FavTendencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3A38B2248F54A000BF303D /* FavTendencyTests.swift */; };
 		4B3A38BE248F54A000BF303D /* FavTendencyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3A38BD248F54A000BF303D /* FavTendencyUITests.swift */; };
 		4B3A38D2248F586E00BF303D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3A38D1248F586E00BF303D /* MainViewController.swift */; };
+		4B4A0CF724D931C300B6FD97 /* SetupObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A0CF624D931C300B6FD97 /* SetupObj.swift */; };
 		4B6BCF7624A2F1A30094E868 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6BCF7524A2F1A30094E868 /* Person.swift */; };
 		4B6FB408249317F000D0550B /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6FB407249317F000D0550B /* ResultTableViewController.swift */; };
 		4BC1E2A824C68E8200B7291E /* TendencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC1E2A724C68E8200B7291E /* TendencyViewController.swift */; };
@@ -59,6 +60,7 @@
 		4B3A38BD248F54A000BF303D /* FavTendencyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavTendencyUITests.swift; sourceTree = "<group>"; };
 		4B3A38BF248F54A000BF303D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B3A38D1248F586E00BF303D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4B4A0CF624D931C300B6FD97 /* SetupObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupObj.swift; sourceTree = "<group>"; };
 		4B6BCF7524A2F1A30094E868 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		4B6FB407249317F000D0550B /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		4BC1E2A724C68E8200B7291E /* TendencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TendencyViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				4B0A89E124A46282000A7AA4 /* SprashView.swift */,
 				4B6BCF7524A2F1A30094E868 /* Person.swift */,
 				4BCEEE5E24972690005FF377 /* MyAPI.swift */,
+				4B4A0CF624D931C300B6FD97 /* SetupObj.swift */,
 				4B3A389D248F549E00BF303D /* AppDelegate.swift */,
 				4B3A38A4248F54A000BF303D /* Assets.xcassets */,
 				4B3A38A6248F54A000BF303D /* LaunchScreen.storyboard */,
@@ -407,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B4A0CF724D931C300B6FD97 /* SetupObj.swift in Sources */,
 				4BC1E2A824C68E8200B7291E /* TendencyViewController.swift in Sources */,
 				4B6BCF7624A2F1A30094E868 /* Person.swift in Sources */,
 				4B3A38D2248F586E00BF303D /* MainViewController.swift in Sources */,
