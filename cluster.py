@@ -174,17 +174,17 @@ def main(impression):
     # Get the high level cluster
     cluster_a, cluster_b = averageSplits(impression_avg_a, category_a, "clusterA")
     cluster_c, cluster_d = averageSplits(impression_avg_b, category_b, "clusterB")
-
+    
     # Get the middle level cluster
-    cluster_a_m = imageClustering(cluster_a, l)
-    cluster_b_m = imageClustering(cluster_b, l)
-    cluster_c_m = imageClustering(cluster_c, l)
-    cluster_d_m = imageClustering(cluster_d, l)
+    cluster_a_m = imageClustering(cluster_a, l) if cluster_a != 0 else 0
+    cluster_b_m = imageClustering(cluster_b, l) if cluster_b != 0 else 0
+    cluster_c_m = imageClustering(cluster_c, l) if cluster_c != 0 else 0
+    cluster_d_m = imageClustering(cluster_d, l) if cluster_d != 0 else 0
 
     ans = []
-    ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
-    ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
-    ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
-    ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
+    if cluster_a_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
+    if cluster_b_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
+    if cluster_c_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
+    if cluster_d_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
     
     return ans
