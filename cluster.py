@@ -153,9 +153,9 @@ def final_answer(user_tendency):
     for i in user_tendency:
         tendency = [j["label"] for j in label if j["symbol"] == i["symbol"]]
         if len(tendency) > 0:
-            keys = ["tendency"]
+            keys = [tendency[0]]
             value = [i["list"]]
-            answer.append(dict(zip(keys, values)))
+            answer.append(dict(zip(keys, value)))
     return answer
 
 

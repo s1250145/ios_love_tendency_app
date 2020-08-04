@@ -211,15 +211,15 @@ class MainViewController: UIViewController {
 
     @objc func finishButtonTapped(sender: UIButton) {
         let api = MyAPI()
-        api.clusteringResultGet(data: impressions, responseClosure: { (result) in
+        api.clustering(data: impressions, responseClosure: { (responce) in
             let vc = ResultTableViewController()
             var list: [[String: Any]] = []
-            for tmp in result {
-                let tendency = tmp[0]["tendency"]!
+            for tmp in responce {
+                let tendency = tmp.keys.first!
                 var tendPersons = [Person]()
-                for data in tmp {
+                tmp[tendency]!.forEach { (v) in
                     let person = self.persons.filter {
-                        $0.id == data["id"] as! Int
+                        $0.id == v
                     }
                     tendPersons.append(person[0])
                 }

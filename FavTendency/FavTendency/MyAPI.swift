@@ -54,9 +54,10 @@ class MyAPI {
             guard let obj = response.result.value else { return }
             let json = JSON(obj)
             var arr: [[String: [Int]]] = []
-            json.forEach { (label, ids) in
+            json.forEach { (_, d) in
+                let label = d.dictionaryValue.keys.first!
                 var list: [Int] = []
-                ids.forEach { (_, v) in
+                d[label].forEach { (_, v) in
                     list.append(v.intValue)
                 }
                 arr.append([label: list])
