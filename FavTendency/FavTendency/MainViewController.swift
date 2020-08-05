@@ -36,10 +36,10 @@ class MainViewController: UIViewController {
         let subColor = UIColor(red: 72/255, green: 102/255, blue: 102/255, alpha: 1.0)
         let enableColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
 
-        persons = getPersons()
+        persons = PersonAction.getPersons()
 
         // first showing
-        setData(person: persons[0])
+        setData(persons[0])
 
         view.addSubview(name)
         view.addSubview(group)
@@ -157,11 +157,11 @@ class MainViewController: UIViewController {
                 })
             })
         } else {
-            if(totalTendency == 99) {
+            if(totalTendency == 119) {
                 record(id: personId, value: Int(slider.value))
             } else {
                 record(id: personId, value: Int(slider.value))
-                setData(person: selectPerson())
+                setData(PersonAction.selectPerson(persons))
             }
         }
     }
@@ -177,14 +177,14 @@ class MainViewController: UIViewController {
             finishButton.backgroundColor = UIColor.white
             attention.text = "結果をみることができます💁🏻‍♀️"
         }
-        if(totalTendency == 100) {
+        if(totalTendency == 120) {
             nextButton.isEnabled = false
             nextButton.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
             attention.text = "全員終わりました。結果を見てみましょう👩🏻‍🔬"
         }
     }
 
-    func setData(person: Person) {
+    func setData(_ person: Person) {
         personId = person.id
         name.text = person.name
         group.text = person.group
@@ -213,20 +213,6 @@ class MainViewController: UIViewController {
             vc.result = list
             self.show(vc, sender: nil)
         })
-    }
-
-    func selectPerson() -> Person {
-        let randomInt = Int.random(in: 1..<120)
-        return persons[randomInt].isShown ? selectPerson() : persons[randomInt]
-    }
-
-    func getPersons() -> [Person] {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data = UserDefaults.standard.data(forKey: "Persons"), let persons = try? jsonDecoder.decode([Person].self, from: data) else {
-            return [Person]()
-        }
-        return persons
     }
 
     @objc func sliderDidChangeValue(_ sender: UISlider) {
