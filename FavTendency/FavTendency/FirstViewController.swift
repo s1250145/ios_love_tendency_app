@@ -9,7 +9,6 @@
 import UIKit
 
 class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    let mainColor = UIColor(red: 136/255, green: 191/255, blue: 191/255, alpha: 1.0)
     let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
     let sprashView = UIView(frame: CGRect.zero)
 
@@ -22,7 +21,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         view.backgroundColor = UIColor.white
 
         // sprash screen animation
-        sprashView.backgroundColor = mainColor
+        sprashView.backgroundColor = UIColor.luvColor.mainColor
         sprashView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.image = UIImage(named: "推し隊")
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +50,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         operationList.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         view.addSubview(operationList)
 
-        let startButton = SetupObj.tabButton(title: "やってみる", bgColor: mainColor, isBorder: false)
+        let startButton = SetupObj.tabButton(title: "やってみる", bgColor: UIColor.luvColor.mainColor, isBorder: false)
         view.addSubview(startButton)
 
         startButton.addTarget(self, action: #selector(startButtonTapped(sender:)), for: .touchUpInside)
@@ -93,7 +92,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath as IndexPath)
-        cell.backgroundColor = mainColor
+        cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
         let cellText = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25))

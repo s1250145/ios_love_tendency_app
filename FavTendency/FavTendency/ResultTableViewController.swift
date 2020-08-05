@@ -9,7 +9,6 @@
 import UIKit
 
 class ResultTableViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    let mainColor = UIColor(red: 136/255, green: 191/255, blue: 191/255, alpha: 1.0)
 
     var result: [[String: Any]] = []
 
@@ -32,7 +31,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         resultList.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         view.addSubview(resultList)
 
-        let oneMoreButton = SetupObj.tabButton(title: "もういっかい", bgColor: mainColor, isBorder: false)
+        let oneMoreButton = SetupObj.tabButton(title: "もういっかい", bgColor: UIColor.luvColor.mainColor, isBorder: false)
         view.addSubview(oneMoreButton)
 
         oneMoreButton.addTarget(self, action: #selector(tappedOneMoreButton(sender:)), for: .touchUpInside)
@@ -75,7 +74,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath as IndexPath)
-        cell.backgroundColor = mainColor
+        cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
         let cellText = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25))

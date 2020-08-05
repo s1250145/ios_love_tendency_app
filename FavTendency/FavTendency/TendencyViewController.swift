@@ -11,8 +11,6 @@ import UIKit
 class TendencyViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var result: [String: Any] = [:]
 
-    let mainColor = UIColor(red: 136/255, green: 191/255, blue: 191/255, alpha: 1.0)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -71,7 +69,7 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath as IndexPath)
-        cell.backgroundColor = mainColor
+        cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
         let cellImage = UIImageView(frame: CGRect.zero)

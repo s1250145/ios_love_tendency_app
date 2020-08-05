@@ -30,14 +30,9 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = UIColor.white
-        let mainColor = UIColor(red: 136/255, green: 191/255, blue: 191/255, alpha: 1.0)
-        let subColor = UIColor(red: 72/255, green: 102/255, blue: 102/255, alpha: 1.0)
-        let enableColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
 
         persons = PersonAction.getPersons()
-
         // first showing
         setData(persons[0])
 
@@ -45,7 +40,7 @@ class MainViewController: UIViewController {
         view.addSubview(group)
 
         imageView.layer.borderWidth = 15
-        imageView.layer.borderColor = mainColor.cgColor
+        imageView.layer.borderColor = UIColor.luvColor.mainColor.cgColor
         imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +53,8 @@ class MainViewController: UIViewController {
         slider.minimumValue = 1.0
         slider.maximumValue = 5.0
         slider.value = 3.0
-        slider.minimumTrackTintColor = mainColor
-        slider.maximumTrackTintColor = subColor
+        slider.minimumTrackTintColor = UIColor.luvColor.mainColor
+        slider.maximumTrackTintColor = UIColor.luvColor.subColor
         slider.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(slider)
 
@@ -76,7 +71,7 @@ class MainViewController: UIViewController {
         finishButton.isEnabled = false
         if(!finishButton.isEnabled) {
             finishButton.layer.borderWidth = 0
-            finishButton.backgroundColor = enableColor
+            finishButton.backgroundColor = UIColor.luvColor.enableColor
         }
         finishButton.addTarget(self, action: #selector(finishButtonTapped(sender:)), for: .touchUpInside)
         view.addSubview(finishButton)
@@ -113,7 +108,7 @@ class MainViewController: UIViewController {
 
         if(!isFromFirstVC) {
             // sprash screen animation
-            sprashView.backgroundColor = mainColor
+            sprashView.backgroundColor = UIColor.luvColor.mainColor
             sprashView.translatesAutoresizingMaskIntoConstraints = false
             logoImageView.image = UIImage(named: "推し隊")
             logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,7 +126,6 @@ class MainViewController: UIViewController {
                 ])
             view.bringSubviewToFront(sprashView)
         }
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -179,7 +173,7 @@ class MainViewController: UIViewController {
         }
         if(totalTendency == 120) {
             nextButton.isEnabled = false
-            nextButton.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+            nextButton.backgroundColor = UIColor.luvColor.enableColor
             attention.text = "全員終わりました。結果を見てみましょう👩🏻‍🔬"
         }
     }
