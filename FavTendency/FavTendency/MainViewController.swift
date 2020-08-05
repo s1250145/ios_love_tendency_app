@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     let group = SetupObj.titleLabel(title: "", size: 20)
     let imageView = UIImageView(frame: CGRect.zero)
     let copy = SetupObj.titleLabel(title: "", size: 25)
-    let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+    let impressionSlider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
     let impression = SetupObj.titleLabel(title: "", size: 20)
     let nextButton = SetupObj.tabButton(title: "Next", bgColor: .white, isBorder: true)
     let finishButton = SetupObj.tabButton(title: "Finish", bgColor: .white, isBorder: true)
@@ -48,17 +48,17 @@ class MainViewController: UIViewController {
 
         view.addSubview(copy)
 
-        slider.minimumValueImage = "🍐".emojiToImage
-        slider.maximumValueImage = "💚".emojiToImage
-        slider.minimumValue = 1.0
-        slider.maximumValue = 5.0
-        slider.value = 3.0
-        slider.minimumTrackTintColor = UIColor.luvColor.mainColor
-        slider.maximumTrackTintColor = UIColor.luvColor.subColor
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(slider)
+        impressionSlider.minimumValueImage = "🍐".emojiToImage
+        impressionSlider.maximumValueImage = "💚".emojiToImage
+        impressionSlider.minimumValue = 1.0
+        impressionSlider.maximumValue = 5.0
+        impressionSlider.value = 3.0
+        impressionSlider.minimumTrackTintColor = UIColor.luvColor.mainColor
+        impressionSlider.maximumTrackTintColor = UIColor.luvColor.subColor
+        impressionSlider.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(impressionSlider)
 
-        slider.addTarget(self, action: #selector(sliderDidChangeValue(_:)), for: .valueChanged)
+        impressionSlider.addTarget(self, action: #selector(sliderDidChangeValue(_:)), for: .valueChanged)
 
         let barAttention = SetupObj.titleLabel(title: "バーを動かして印象を回答", size: 10)
         view.addSubview(barAttention)
@@ -89,11 +89,11 @@ class MainViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: group.bottomAnchor, constant: 15),
             copy.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             copy.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            slider.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
-            slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            slider.topAnchor.constraint(equalTo: copy.bottomAnchor, constant: 20),
+            impressionSlider.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
+            impressionSlider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            impressionSlider.topAnchor.constraint(equalTo: copy.bottomAnchor, constant: 20),
             barAttention.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            barAttention.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
+            barAttention.topAnchor.constraint(equalTo: impressionSlider.bottomAnchor, constant: 5),
             impression.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             impression.topAnchor.constraint(equalTo: barAttention.bottomAnchor, constant: 30),
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -152,9 +152,9 @@ class MainViewController: UIViewController {
             })
         } else {
             if(totalTendency == 119) {
-                record(id: personId, value: Int(slider.value))
+                record(id: personId, value: Int(impressionSlider.value))
             } else {
-                record(id: personId, value: Int(slider.value))
+                record(id: personId, value: Int(impressionSlider.value))
                 setData(PersonAction.selectPerson(persons))
             }
         }
@@ -184,7 +184,7 @@ class MainViewController: UIViewController {
         group.text = person.group
         copy.text = person.copy
         imageView.image = person.image.b64ToImage
-        slider.value = 3.0
+        impressionSlider.value = 3.0
         impression.text = ""
     }
 
