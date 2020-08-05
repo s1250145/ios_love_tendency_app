@@ -151,7 +151,7 @@ class MainViewController: UIViewController {
     }
 
     @objc func nextButtonTapped(sender: UIButton) {
-        if(impression.text == "") {
+        if(impression.text == "" || attribute.text == "") {
             let dialog = UIAlertController(title: "", message: "印象を回答してください", preferredStyle: .alert)
             self.present(dialog, animated: true, completion: { () in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
