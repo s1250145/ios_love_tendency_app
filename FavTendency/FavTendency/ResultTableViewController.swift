@@ -57,15 +57,6 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         self.show(vc, sender: nil)
     }
 
-    func base64ToImage(imageString: String) -> UIImage? {
-        let decodeBase64: NSData? = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
-        if decodeBase64 != nil {
-            let image = UIImage(data: decodeBase64! as Data)
-            return image
-        }
-        return nil
-    }
-
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let vc = TendencyViewController()
         vc.result = result[indexPath.row]
@@ -95,7 +86,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
 
         let cellImage = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.7, height: cell.contentView.frame.width*0.7))
         let persons = result[indexPath.row]["persons"]! as! [Person]
-        cellImage.image = base64ToImage(imageString: persons[0].image)
+        cellImage.image = persons[0].image.b64ToImage
         cellImage.layer.borderWidth = 6
         cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.layer.cornerRadius = cellImage.frame.width*0.15

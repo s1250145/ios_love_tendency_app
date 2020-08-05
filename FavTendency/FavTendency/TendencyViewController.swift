@@ -76,7 +76,7 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         let cellImage = UIImageView(frame: CGRect.zero)
         let persons = result["persons"]! as! [Person]
-        cellImage.image = base64ToImage(imageString: persons[indexPath.row].image)
+        cellImage.image = persons[indexPath.row].image.b64ToImage
         cellImage.layer.borderWidth = 6
         cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.layer.cornerRadius = 25
@@ -123,14 +123,4 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
         let height = 200 as CGFloat
         return CGSize(width: width, height: height)
     }
-
-    func base64ToImage(imageString: String) -> UIImage? {
-        let decodeBase64: NSData? = NSData(base64Encoded: imageString, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
-        if decodeBase64 != nil {
-            let image = UIImage(data: decodeBase64! as Data)
-            return image
-        }
-        return nil
-    }
-
 }
