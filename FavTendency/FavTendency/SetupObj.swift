@@ -37,4 +37,17 @@ class SetupObj {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }
+
+    static func slider(minEmoji: String, maxEmoji: String) -> UISlider {
+        let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+        slider.minimumValueImage = minEmoji.emojiToImage
+        slider.maximumValueImage = maxEmoji.emojiToImage
+        slider.minimumValue = 1.0
+        slider.maximumValue = 5.0
+        slider.value = 3.0
+        slider.minimumTrackTintColor = UIColor.luvColor.mainColor
+        slider.maximumTrackTintColor = UIColor.luvColor.subColor
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
+    }
 }
