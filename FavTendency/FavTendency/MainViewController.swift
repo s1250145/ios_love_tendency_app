@@ -9,16 +9,15 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let name = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
-    let group = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+    let name = SetupObj.titleLabel(title: "", size: 40)
+    let group = SetupObj.titleLabel(title: "", size: 20)
     let imageView = UIImageView(frame: CGRect.zero)
-    let copy = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+    let copy = SetupObj.titleLabel(title: "", size: 25)
     let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
-    let impression = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+    let impression = SetupObj.titleLabel(title: "", size: 20)
     let nextButton = SetupObj.tabButton(title: "Next", bgColor: .white, isBorder: true)
     let finishButton = SetupObj.tabButton(title: "Finish", bgColor: .white, isBorder: true)
-    let attention = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
-
+    let attention = SetupObj.titleLabel(title: "一定回数やると結果を見ることができます", size: 10)
     let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
     let sprashView = UIView(frame: CGRect.zero)
 
@@ -42,12 +41,7 @@ class MainViewController: UIViewController {
         // first showing
         setData(person: persons[0])
 
-        name.font = UIFont.systemFont(ofSize: 40)
-        name.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(name)
-
-        group.font = UIFont.systemFont(ofSize: 20)
-        group.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(group)
 
         imageView.layer.borderWidth = 15
@@ -57,8 +51,6 @@ class MainViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
 
-        copy.font = UIFont.systemFont(ofSize: 25)
-        copy.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(copy)
 
         slider.minimumValueImage = emojiToImage(text: "🍐", size: 20)
@@ -73,14 +65,9 @@ class MainViewController: UIViewController {
 
         slider.addTarget(self, action: #selector(sliderDidChangeValue(_:)), for: .valueChanged)
 
-        let barAttention = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 15))
-        barAttention.text = "バーを動かして印象を回答"
-        barAttention.font = UIFont.systemFont(ofSize: 10)
-        barAttention.translatesAutoresizingMaskIntoConstraints = false
+        let barAttention = SetupObj.titleLabel(title: "バーを動かして印象を回答", size: 10)
         view.addSubview(barAttention)
 
-        impression.font = UIFont.systemFont(ofSize: 20)
-        impression.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(impression)
 
         view.addSubview(nextButton)
@@ -93,9 +80,7 @@ class MainViewController: UIViewController {
         }
         finishButton.addTarget(self, action: #selector(finishButtonTapped(sender:)), for: .touchUpInside)
         view.addSubview(finishButton)
-        attention.text = "一定回数やると結果を見ることができます"
-        attention.font = UIFont.systemFont(ofSize: 10)
-        attention.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(attention)
 
         NSLayoutConstraint.activate([
@@ -146,6 +131,21 @@ class MainViewController: UIViewController {
                 ])
             view.bringSubviewToFront(sprashView)
         }
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 1.0,
+                       options: .curveEaseOut,
+                       animations: { () in
+                        self.logoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)},
+                       completion: { (Bool) in })
+        UIView.animate(withDuration: 0.4, delay: 1.3, options: .curveEaseOut, animations: { () in
+            self.logoImageView.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
+            self.logoImageView.alpha = 0},
+                       completion: { (Bool) in
+                        self.sprashView.removeFromSuperview() })
     }
 
     @objc func nextButtonTapped(sender: UIButton) {
@@ -232,20 +232,6 @@ class MainViewController: UIViewController {
     @objc func sliderDidChangeValue(_ sender: UISlider) {
         let list = ["これは推せない😠", "DD!🤙🏻", "ふつう", "気になる🦆", "本命だょ🥺"]
         impression.text = list[Int(floor(sender.value))-1]
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.5, delay: 1.0,
-                       options: .curveEaseOut,
-                       animations: { () in
-                        self.logoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)},
-                       completion: { (Bool) in })
-        UIView.animate(withDuration: 0.4, delay: 1.3, options: .curveEaseOut, animations: { () in
-            self.logoImageView.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
-            self.logoImageView.alpha = 0},
-                       completion: { (Bool) in
-                        self.sprashView.removeFromSuperview() })
     }
 
     func emojiToImage(text: String, size: CGFloat) -> UIImage {

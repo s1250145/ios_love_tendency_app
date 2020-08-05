@@ -18,6 +18,14 @@ class SetupObj {
         return label
     }
 
+    static func titleLabel(title: String, size: Int) -> UILabel {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = title
+        label.font = UIFont.systemFont(ofSize: CGFloat(size))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+
     static func tabButton(title: String, bgColor: UIColor, isBorder: Bool) -> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 45))
         button.setTitle(title, for: .normal)

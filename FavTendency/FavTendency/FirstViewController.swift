@@ -29,10 +29,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         sprashView.addSubview(logoImageView)
         view.addSubview(sprashView)
 
-        let heading = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.6, height: 40))
-        heading.translatesAutoresizingMaskIntoConstraints = false
-        heading.text = "LuvTendency"
-        heading.font = UIFont(name: "ChalkboardSE-bold", size: 40)
+        let heading = SetupObj.headingLabel(title: "LuvTendency", size: 40)
         view.addSubview(heading)
 
         let lead = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.6, height: 15))

@@ -17,10 +17,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
 
-        let heading = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.6, height: 40))
-        heading.translatesAutoresizingMaskIntoConstraints = false
-        heading.text = "あなたのLuvな傾向は💘"
-        heading.font = UIFont.systemFont(ofSize: 35)
+        let heading = SetupObj.headingLabel(title: "あなたのLuvな傾向は💘", size: 35)
         view.addSubview(heading)
 
         let layout = UICollectionViewFlowLayout()
