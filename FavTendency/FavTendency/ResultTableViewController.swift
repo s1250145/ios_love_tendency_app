@@ -77,20 +77,11 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
-        let cellText = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25))
-        cellText.text = result[indexPath.row]["tendency"] as? String
-        cellText.font = UIFont.systemFont(ofSize: 15)
-        cellText.adjustsFontSizeToFitWidth = true
-        cellText.translatesAutoresizingMaskIntoConstraints = false
+        let cellText = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25), size: 15, text: result[indexPath.row]["tendency"] as! String)
 
-        let cellImage = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.7, height: cell.contentView.frame.width*0.7))
+//        let cellImage = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.7, height: cell.contentView.frame.width*0.7))
         let persons = result[indexPath.row]["persons"]! as! [Person]
-        cellImage.image = persons[0].image.b64ToImage
-        cellImage.layer.borderWidth = 6
-        cellImage.layer.borderColor = UIColor.white.cgColor
-        cellImage.layer.cornerRadius = cellImage.frame.width*0.15
-        cellImage.clipsToBounds = true
-        cellImage.translatesAutoresizingMaskIntoConstraints = false
+        let cellImage = SetupObj.cellImage(image: persons[0].image.b64ToImage!)
 
         let viewMoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
         viewMoreLabel.text = "view more...👀"

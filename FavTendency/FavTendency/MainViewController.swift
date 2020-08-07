@@ -11,13 +11,19 @@ import UIKit
 class MainViewController: UIViewController {
     let name = SetupObj.titleLabel(title: "", size: 40)
     let group = SetupObj.titleLabel(title: "", size: 20)
-    let imageView = UIImageView(frame: CGRect.zero)
+    let imageView = SetupObj.imageView(frame: CGRect.zero)
     let copy = SetupObj.titleLabel(title: "", size: 25)
-    let slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+
+    let impressionSlider = SetupObj.slider(minEmoji: "🍐", maxEmoji: "💚")
+    let attributeSlider = SetupObj.slider(minEmoji: "😍", maxEmoji: "🙂")
+
     let impression = SetupObj.titleLabel(title: "", size: 20)
+    let attribute = SetupObj.titleLabel(title: "", size: 20)
+
     let nextButton = SetupObj.tabButton(title: "Next", bgColor: .white, isBorder: true)
     let finishButton = SetupObj.tabButton(title: "Finish", bgColor: .white, isBorder: true)
     let attention = SetupObj.titleLabel(title: "一定回数やると結果を見ることができます", size: 10)
+
     let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
     let sprashView = UIView(frame: CGRect.zero)
 
@@ -38,31 +44,18 @@ class MainViewController: UIViewController {
 
         view.addSubview(name)
         view.addSubview(group)
-
-        imageView.layer.borderWidth = 15
-        imageView.layer.borderColor = UIColor.luvColor.mainColor.cgColor
-        imageView.layer.cornerRadius = 25
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
-
         view.addSubview(copy)
 
-        slider.minimumValueImage = "🍐".emojiToImage
-        slider.maximumValueImage = "💚".emojiToImage
-        slider.minimumValue = 1.0
-        slider.maximumValue = 5.0
-        slider.value = 3.0
-        slider.minimumTrackTintColor = UIColor.luvColor.mainColor
-        slider.maximumTrackTintColor = UIColor.luvColor.subColor
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(slider)
-
-        slider.addTarget(self, action: #selector(sliderDidChangeValue(_:)), for: .valueChanged)
+        view.addSubview(impressionSlider)
+        impressionSlider.addTarget(self, action: #selector(impressionSliderDidChangeValue(_:)), for: .valueChanged)
+        view.addSubview(attributeSlider)
+        attributeSlider.addTarget(self, action: #selector(attributeSliderDidChangeValue(_:)), for: .valueChanged)
 
         let barAttention = SetupObj.titleLabel(title: "バーを動かして印象を回答", size: 10)
         view.addSubview(barAttention)
 
+        view.addSubview(attribute)
         view.addSubview(impression)
 
         view.addSubview(nextButton)
@@ -89,15 +82,24 @@ class MainViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: group.bottomAnchor, constant: 15),
             copy.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             copy.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            slider.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
-            slider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            slider.topAnchor.constraint(equalTo: copy.bottomAnchor, constant: 20),
+
             barAttention.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            barAttention.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 5),
+            barAttention.topAnchor.constraint(equalTo: copy.bottomAnchor, constant: 5),
+
+            impressionSlider.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
+            impressionSlider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            impressionSlider.topAnchor.constraint(equalTo: barAttention.bottomAnchor, constant: 15),
             impression.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            impression.topAnchor.constraint(equalTo: barAttention.bottomAnchor, constant: 30),
+            impression.topAnchor.constraint(equalTo: impressionSlider.bottomAnchor, constant: 10),
+
+            attributeSlider.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
+            attributeSlider.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            attributeSlider.topAnchor.constraint(equalTo: impression.bottomAnchor, constant: 10),
+            attribute.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            attribute.topAnchor.constraint(equalTo: attributeSlider.bottomAnchor, constant: 10),
+            
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.topAnchor.constraint(equalTo: impression.bottomAnchor, constant: 30),
+            nextButton.topAnchor.constraint(equalTo: attribute.bottomAnchor, constant: 30),
             nextButton.widthAnchor.constraint(equalToConstant: view.frame.width*0.7),
             finishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             finishButton.topAnchor.constraint(equalTo: nextButton.bottomAnchor, constant: 10),
@@ -143,7 +145,7 @@ class MainViewController: UIViewController {
     }
 
     @objc func nextButtonTapped(sender: UIButton) {
-        if(impression.text == "") {
+        if(impression.text == "" || attribute.text == "") {
             let dialog = UIAlertController(title: "", message: "印象を回答してください", preferredStyle: .alert)
             self.present(dialog, animated: true, completion: { () in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -152,17 +154,17 @@ class MainViewController: UIViewController {
             })
         } else {
             if(totalTendency == 119) {
-                record(id: personId, value: Int(slider.value))
+                record(id: personId, impression: Int(impressionSlider.value), attribute: Int(attributeSlider.value))
             } else {
-                record(id: personId, value: Int(slider.value))
+                record(id: personId, impression: Int(impressionSlider.value), attribute: Int(attributeSlider.value))
                 setData(PersonAction.selectPerson(persons))
             }
         }
     }
 
-    func record(id: Int, value: Int) {
+    func record(id: Int, impression: Int, attribute: Int) {
         persons[id-1].isShown = true
-        let data = ["id": id, "impression": value]
+        let data = ["id": id, "impression": impression, "attribute": attribute]
         impressions.append(data)
         totalTendency += 1
         if(totalTendency > 29) {
@@ -184,8 +186,10 @@ class MainViewController: UIViewController {
         group.text = person.group
         copy.text = person.copy
         imageView.image = person.image.b64ToImage
-        slider.value = 3.0
+        impressionSlider.value = 3.0
         impression.text = ""
+        attributeSlider.value = 3.0
+        attribute.text = ""
     }
 
     @objc func finishButtonTapped(sender: UIButton) {
@@ -209,7 +213,12 @@ class MainViewController: UIViewController {
         })
     }
 
-    @objc func sliderDidChangeValue(_ sender: UISlider) {
+    @objc func attributeSliderDidChangeValue(_ sender: UISlider) {
+        let list = ["かっこいい💎", "かわいい💗", "セクシー⚡️", "おもしろい👏🏻", "ふつう"]
+        attribute.text = list[Int(floor(sender.value))-1]
+    }
+
+    @objc func impressionSliderDidChangeValue(_ sender: UISlider) {
         let list = ["これは推せない😠", "DD!🤙🏻", "ふつう", "気になる🦆", "本命だょ🥺"]
         impression.text = list[Int(floor(sender.value))-1]
     }

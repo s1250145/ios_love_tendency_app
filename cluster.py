@@ -6,84 +6,8 @@ import numpy as np
 from math import log
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
 
-
-def dataFraming(data, cluster):
-    # show pandas table
-    cluster_category = []
-    for i in cluster:
-        value = [j[2] for j in data if j[0] == i]   
-        cluster_category.append([i, value[0]]) 
-    df = pd.DataFrame(cluster_category, columns=["id", "category"])
-    return df
-
-
-def averageSplits(id, values, name):
-    df = pd.DataFrame(values, columns=["value"])
-    # print(f"{name} average ", df.mean())
-    l1 = [] # l1 is value is larger than average
-    l2 = [] 
-    for i, value in enumerate(values):
-        if value > df.mean().value:
-            l1.append(id[i])
-        else:
-            l2.append(id[i])
-    return l1, l2
-
-
-def dataFormatting(impression):
-    with open('imagelist.pickle', 'rb') as f:
-        image_list = pickle.load(f) # all person's image
-    # with open('impression.pickle', 'rb') as g:
-    #     impression = pickle.load(g) # id, impression_value
-    with open('person_catego.json', 'r') as b:
-        category = json.load(b) # all person's category
-
-    l = []
-    for i in impression:
-        vector = [j["vector"] for j in image_list if j["id"] == i["id"]]
-        c = [int(k["num"]) for k in category if int(k["id"]) == i["id"]]
-        l.append([i["id"], vector[0], c[0], i["impression"]]) # id, vector, category, impression_value
-
-    return l
-
-
-def elbow(x):
-    l = []
-    for i in range(1,len(x)):
-        km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
-        km.fit(x)
-        l.append(km.inertia_)
-        
-    elbow_k = 0
-    for s in range(1, len(l)):
-        if l[s-1]-l[s] < 0.1:
-            elbow_k = s-1
-            break
-        
-    return elbow_k
-    
-
-def imageClustering(cluster, data):
-    l = []
-    for i in cluster:
-        v = [j[1] for j in data if j[0] == i]
-        l.append(v[0])
-    vector = np.asarray(l)
-    k = elbow(vector)
-    kmeans = KMeans(n_clusters=k).fit(vector)
-    label = kmeans.predict(vector)
-    result = []
-    for i in range(k):
-        l = []
-        for v in vector[label==i]:
-            id = [j[0] for j in data if np.all(j[1] == v)]
-            l.append(id[0])
-        result.append(l)
-    return result
-    
 
 def tf(t, c):
     return np.count_nonzero(c == t)/len(c)
@@ -129,21 +53,13 @@ def calculate_tf_icf(id, data):
     result = []
     for i in s:
         c = np.asarray(i)
-        category_tf_icf = every_t_check(c[:,1], s, N, 1) + 1 # category
+        category_tf_icf = every_t_check(c[:,1], s, N, 1) + 1 # attribute
         impression_tf_icf = every_t_check(c[:,2], s, N, 2) + 1 # impression
-        # image, category, impression
+        # image, attribute, impression
         keys = ["list", "symbol"]
         values = [c[:,0].tolist(), [category_tf_icf, impression_tf_icf]]
         result.append(dict(zip(keys, values)))
     return result
-
-
-def set_category(data, list):
-    l = []
-    for i in list:
-        value = [j[2] for j in data if j[0] == i]
-        l.append(value[0])
-    return l
 
 
 def final_answer(user_tendency):
@@ -159,17 +75,81 @@ def final_answer(user_tendency):
     return answer
 
 
+def dataFormatting(impression):
+    with open('imagelist.pickle', 'rb') as f:
+        image_list = pickle.load(f) # all person's image
+    l = []
+    for i in impression:
+        vector = [j["vector"] for j in image_list if j["id"] == i["id"]]
+        l.append([i["id"], vector[0], i["attribute"], i["impression"]]) # id, vector, attribute, impression_value
+    return l
+
+
+def averageSplits(id, values, name):
+    df = pd.DataFrame(values, columns=["value"])
+    l1 = [] # l1 is value is larger than average
+    l2 = [] 
+    for i, value in enumerate(values):
+        if value > df.mean().value:
+            l1.append(id[i])
+        else:
+            l2.append(id[i])
+    return l1, l2
+
+
+def set_attribute(data, list):
+    l = []
+    for i in list:
+        value = [j[2] for j in data if j[0] == i]
+        l.append(value[0])
+    return l
+
+
+def imageClustering(cluster, data):
+    l = []
+    for i in cluster:
+        v = [j[1] for j in data if j[0] == i]
+        l.append(v[0])
+    vector = np.asarray(l)
+    k = elbow(vector)
+    kmeans = KMeans(n_clusters=k).fit(vector)
+    label = kmeans.predict(vector)
+    result = []
+    for i in range(k):
+        l = []
+        for v in vector[label==i]:
+            id = [j[0] for j in data if np.all(j[1] == v)]
+            l.append(id[0])
+        result.append(l)
+    return result
+
+
+def elbow(x):
+    l = []
+    for i in range(1,len(x)):
+        km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
+        km.fit(x)
+        l.append(km.inertia_)
+        
+    elbow_k = 0
+    for s in range(1, len(l)):
+        if l[s-1]-l[s] < 0.1:
+            elbow_k = s-1
+            break
+        
+    return elbow_k
+
+
 def main(impression):
     l = dataFormatting(impression)
-    # l = dataFormatting()
-
-    df = pd.DataFrame(l, columns=["id", "vector", "category", "impression"])
+    # df = pd.DataFrame(l, columns=["id", "vector", "attribute", "impression"])
+    # print(df)
 
     data_x = np.asarray(l)
     impression_avg_a, impression_avg_b = averageSplits(data_x[:, 0].tolist(), data_x[:, 3].tolist(), "impression")
 
-    category_a = set_category(l, impression_avg_a)
-    category_b = set_category(l, impression_avg_b)
+    category_a = set_attribute(l, impression_avg_a)
+    category_b = set_attribute(l, impression_avg_b)
 
     # Get the high level cluster
     cluster_a, cluster_b = averageSplits(impression_avg_a, category_a, "clusterA")
