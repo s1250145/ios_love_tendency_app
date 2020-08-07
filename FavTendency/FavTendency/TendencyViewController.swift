@@ -72,26 +72,10 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
-        let cellImage = UIImageView(frame: CGRect.zero)
         let persons = result["persons"]! as! [Person]
-        cellImage.image = persons[indexPath.row].image.b64ToImage
-        cellImage.layer.borderWidth = 6
-        cellImage.layer.borderColor = UIColor.white.cgColor
-        cellImage.layer.cornerRadius = 25
-        cellImage.clipsToBounds = true
-        cellImage.translatesAutoresizingMaskIntoConstraints = false
-
-        let cellName = UILabel(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 25))
-        cellName.text = persons[indexPath.row].name
-        cellName.font = UIFont.systemFont(ofSize: 25)
-        cellName.adjustsFontSizeToFitWidth = true
-        cellName.translatesAutoresizingMaskIntoConstraints = false
-
-        let cellGroup = UILabel(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 15))
-        cellGroup.text = persons[indexPath.row].group
-        cellGroup.font = UIFont.systemFont(ofSize: 15)
-        cellGroup.adjustsFontSizeToFitWidth = true
-        cellGroup.translatesAutoresizingMaskIntoConstraints = false
+        let cellImage = SetupObj.cellImage(image: persons[indexPath.row].image.b64ToImage!)
+        let cellName = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 25), size: 25, text: persons[indexPath.row].name)
+        let cellGroup = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.5, height: 15), size: 15, text: persons[indexPath.row].group)
 
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()

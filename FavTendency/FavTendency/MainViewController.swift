@@ -11,7 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
     let name = SetupObj.titleLabel(title: "", size: 40)
     let group = SetupObj.titleLabel(title: "", size: 20)
-    let imageView = UIImageView(frame: CGRect.zero)
+    let imageView = SetupObj.imageView(frame: CGRect.zero)
     let copy = SetupObj.titleLabel(title: "", size: 25)
 
     let impressionSlider = SetupObj.slider(minEmoji: "🍐", maxEmoji: "💚")
@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     let nextButton = SetupObj.tabButton(title: "Next", bgColor: .white, isBorder: true)
     let finishButton = SetupObj.tabButton(title: "Finish", bgColor: .white, isBorder: true)
     let attention = SetupObj.titleLabel(title: "一定回数やると結果を見ることができます", size: 10)
+
     let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
     let sprashView = UIView(frame: CGRect.zero)
 
@@ -43,14 +44,7 @@ class MainViewController: UIViewController {
 
         view.addSubview(name)
         view.addSubview(group)
-
-        imageView.layer.borderWidth = 15
-        imageView.layer.borderColor = UIColor.luvColor.mainColor.cgColor
-        imageView.layer.cornerRadius = 25
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
-
         view.addSubview(copy)
 
         view.addSubview(impressionSlider)
