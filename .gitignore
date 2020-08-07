@@ -1,7 +1,8 @@
 *.png
 google-cloud-sdk/
-facenet-sample/
-image/thumb/*
+data/image/imageToVector/facenet/*
+data/image/imageToVector/after/*
+data/image/thumb/*
 __pycache__/
 
 .DS_Store
