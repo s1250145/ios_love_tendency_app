@@ -6,7 +6,6 @@ import numpy as np
 from math import log
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from PIL import Image
 
 
@@ -79,15 +78,10 @@ def final_answer(user_tendency):
 def dataFormatting(impression):
     with open('imagelist.pickle', 'rb') as f:
         image_list = pickle.load(f) # all person's image
-    # with open('person_catego.json', 'r') as b:
-    #     category = json.load(b) # all person's category
-
     l = []
     for i in impression:
         vector = [j["vector"] for j in image_list if j["id"] == i["id"]]
-        # c = [int(k["num"]) for k in category if int(k["id"]) == i["id"]]
         l.append([i["id"], vector[0], i["attribute"], i["impression"]]) # id, vector, attribute, impression_value
-
     return l
 
 
@@ -148,8 +142,8 @@ def elbow(x):
 
 def main(impression):
     l = dataFormatting(impression)
-    df = pd.DataFrame(l, columns=["id", "vector", "attribute", "impression"])
-    print(df)
+    # df = pd.DataFrame(l, columns=["id", "vector", "attribute", "impression"])
+    # print(df)
 
     data_x = np.asarray(l)
     impression_avg_a, impression_avg_b = averageSplits(data_x[:, 0].tolist(), data_x[:, 3].tolist(), "impression")
