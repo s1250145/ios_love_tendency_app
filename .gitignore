@@ -6,6 +6,8 @@ __pycache__/
 
 .DS_Store
 
+*.swp
+
 # https://qiita.com/inabe49/items/16ee3d9d1ce68daa9fff
 
 # Xcode
@@ -33,5 +35,6 @@ FavTendency/Podfile.lock
 # others
 FavTendency/*.swp
 FavTendency/UserInterfaceState.xcuserstate
+FavTendency/FavTendency.xcworkspace/xcuserdata/miyucg.xcuserdatad/UserInterfaceState.xcuserstate
 FavTendency/!.gitkeep
 FavTendency/.DS_Store
