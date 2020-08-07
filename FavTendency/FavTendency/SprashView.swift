@@ -10,23 +10,29 @@ import UIKit
 
 class SprashView: UIView {
     let logoImageView = UIImageView(frame: CGRect.zero)
-    let sprashView = UIView(frame: CGRect.zero)
-
-    let mainColor = UIColor(red: 136/255, green: 191/255, blue: 191/255, alpha: 1.0)
 
     override func draw(_ rect: CGRect) {
         // Drawing code
-        sprashView.backgroundColor = mainColor
-        sprashView.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.backgroundColor = UIColor.luvColor.mainColor.cgColor
         logoImageView.image = UIImage(named: "推し隊")
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        sprashView.addSubview(logoImageView)
+        self.addSubview(logoImageView)
 
         NSLayoutConstraint.activate([
-            logoImageView.centerXAnchor.constraint(equalTo: sprashView.centerXAnchor),
-            logoImageView.centerYAnchor.constraint(equalTo: sprashView.centerYAnchor),
+            logoImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            logoImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 250),
             logoImageView.heightAnchor.constraint(equalToConstant: 250)
         ])
+    }
+}
+
+extension UIView {
+    func addConstraints(for childView: UIView, insets: UIEdgeInsets = .zero) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: childView.topAnchor, constant: insets.top).isActive = true
+        bottomAnchor.constraint(equalTo: childView.bottomAnchor, constant: insets.bottom).isActive = true
+        leadingAnchor.constraint(equalTo: childView.leadingAnchor, constant: insets.left).isActive = true
+        trailingAnchor.constraint(equalTo: childView.trailingAnchor, constant: insets.right).isActive = true
     }
 }

@@ -9,8 +9,7 @@
 import UIKit
 
 class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
-    let sprashView = UIView(frame: CGRect.zero)
+    let splash = SprashView(frame: CGRect.zero)
 
     let order = ["印象を選ぶ", "繰り返す", "結果を見る"]
     let caption = ["スライドバーを動かして回答します", "印象回答しないと次の人に進めません", "その傾向にある人をさらにく詳しく見れます"]
@@ -21,12 +20,8 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         view.backgroundColor = UIColor.white
 
         // sprash screen animation
-        sprashView.backgroundColor = UIColor.luvColor.mainColor
-        sprashView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.image = UIImage(named: "推し隊")
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        sprashView.addSubview(logoImageView)
-        view.addSubview(sprashView)
+        view.addSubview(splash)
+        view.addConstraints(for: splash)
 
         let heading = SetupObj.headingLabel(title: "LuvTendency", size: 40)
         view.addSubview(heading)
@@ -56,14 +51,6 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         startButton.addTarget(self, action: #selector(startButtonTapped(sender:)), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            sprashView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            sprashView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            sprashView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            sprashView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            logoImageView.centerXAnchor.constraint(equalTo: sprashView.centerXAnchor),
-            logoImageView.centerYAnchor.constraint(equalTo: sprashView.centerYAnchor),
-            logoImageView.widthAnchor.constraint(equalToConstant: 250),
-            logoImageView.heightAnchor.constraint(equalToConstant: 250),
             heading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             heading.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height*0.08),
             lead.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -77,7 +64,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             startButton.widthAnchor.constraint(equalToConstant: view.frame.width*0.7)
         ])
 
-        view.bringSubviewToFront(sprashView)
+        view.bringSubviewToFront(splash)
     }
 
     @objc func startButtonTapped(sender: UIButton) {
@@ -142,12 +129,12 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
         UIView.animate(withDuration: 0.5, delay: 1.0,
                        options: .curveEaseOut,
                        animations: { () in
-                        self.logoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)},
+                        self.splash.logoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)},
                        completion: { (Bool) in })
         UIView.animate(withDuration: 0.4, delay: 1.3, options: .curveEaseOut, animations: { () in
-            self.logoImageView.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
-            self.logoImageView.alpha = 0},
+            self.splash.logoImageView.transform = CGAffineTransform(scaleX: 8.0, y: 8.0)
+            self.splash.logoImageView.alpha = 0},
                        completion: { (Bool) in
-                        self.sprashView.removeFromSuperview() })
+                        self.splash.removeFromSuperview() })
     }
 }
