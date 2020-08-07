@@ -154,17 +154,17 @@ class MainViewController: UIViewController {
             })
         } else {
             if(totalTendency == 119) {
-                record(id: personId, value: Int(impressionSlider.value))
+                record(id: personId, impression: Int(impressionSlider.value), attribute: Int(attributeSlider.value))
             } else {
-                record(id: personId, value: Int(impressionSlider.value))
+                record(id: personId, impression: Int(impressionSlider.value), attribute: Int(attributeSlider.value))
                 setData(PersonAction.selectPerson(persons))
             }
         }
     }
 
-    func record(id: Int, value: Int) {
+    func record(id: Int, impression: Int, attribute: Int) {
         persons[id-1].isShown = true
-        let data = ["id": id, "impression": value]
+        let data = ["id": id, "impression": impression, "attribute": attribute]
         impressions.append(data)
         totalTendency += 1
         if(totalTendency > 29) {
