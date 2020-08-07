@@ -42,6 +42,7 @@ class SetupObj {
         let imageView = UIImageView(frame: frame)
         imageView.layer.borderWidth = 15
         imageView.layer.borderColor = UIColor.luvColor.mainColor.cgColor
+        imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
