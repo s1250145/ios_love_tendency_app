@@ -1,6 +1,7 @@
 import json, requests, pickle
 from flask import jsonify, request, Flask
 from flask_cors import CORS
+# from google.cloud import storage
 
 import cluster
 
@@ -11,13 +12,6 @@ data = json.load(open("person.json", "r"))
 
 @app.route("/", methods=['GET'])
 def first_download():
-    return jsonify(data)
-
-
-@app.route("/cluster", methods=['POST'])
-def start_clustering():
-    impression_data = request.json["data"]
-    data = cluster.main(impression_data)
     return jsonify(data)
 
 
