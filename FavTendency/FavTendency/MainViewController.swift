@@ -199,12 +199,12 @@ class MainViewController: UIViewController {
     }
 
     @objc func attributeSliderDidChangeValue(_ sender: UISlider) {
-        let list = ["かっこいい💎", "かわいい💗", "セクシー⚡️", "おもしろい👏🏻", "ふつう"]
+        let list = ["かっこいい💎", "かわいい💓", "セクシー⚡️", "おもしろい👏🏻", "ふつう"]
         attribute.text = list[Int(floor(sender.value))-1]
     }
 
     @objc func impressionSliderDidChangeValue(_ sender: UISlider) {
-        let list = ["これは推せない😠", "DD!🤙🏻", "ふつう", "気になる🦆", "本命だょ🥺"]
+        let list = ["推せない😠", "DD!🤙🏻", "ふつう", "気になる🦆", "本命だょ🥺"]
         impression.text = list[Int(floor(sender.value))-1]
     }
 }
