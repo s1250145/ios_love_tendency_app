@@ -46,10 +46,10 @@ class MyAPI {
             responseClosure(result)
         }
     }
-
+// sunny-studio-254101.df.r.appspot.com/clustering
     func clustering(data: Any, responseClosure: @escaping([[String: [Int]]]) -> ()) {
         let parameters = ["data": data]
-        Alamofire.request("https://sunny-studio-254101.df.r.appspot.com/clustering", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+        Alamofire.request("http://127.0.0.1:8018/clustering", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
             response in
             guard let obj = response.result.value else { return }
             let json = JSON(obj)

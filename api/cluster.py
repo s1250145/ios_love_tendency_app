@@ -111,7 +111,9 @@ def imageClustering(cluster, data):
         v = [j[1] for j in data if j[0] == i]
         l.append(v[0])
     vector = np.asarray(l)
+    print("length of vector: ", len(vector))
     k = elbow(vector)
+    print("value of k: ", k)
     kmeans = KMeans(n_clusters=k).fit(vector)
     label = kmeans.predict(vector)
     result = []
@@ -130,10 +132,14 @@ def elbow(x):
         km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
         km.fit(x)
         l.append(km.inertia_)
-        
-    elbow_k = 0
+
+    if len(l) < 3: return 2
+    
+    print(l)        
+    
+    elbow_k = 1
     for s in range(1, len(l)):
-        if l[s-1]-l[s] < 0.1:
+        if abs(l[s-1]-l[s]) < 0.1 and abs(l[s-1]-l[s]) > 0.01:
             elbow_k = s-1
             break
         
@@ -142,8 +148,8 @@ def elbow(x):
 
 def main(impression):
     l = dataFormatting(impression)
-    # df = pd.DataFrame(l, columns=["id", "vector", "attribute", "impression"])
-    # print(df)
+    df = pd.DataFrame(l, columns=["id", "vector", "attribute", "impression"])
+    print(df)
 
     data_x = np.asarray(l)
     impression_avg_a, impression_avg_b = averageSplits(data_x[:, 0].tolist(), data_x[:, 3].tolist(), "impression")
@@ -155,16 +161,32 @@ def main(impression):
     cluster_a, cluster_b = averageSplits(impression_avg_a, category_a, "clusterA")
     cluster_c, cluster_d = averageSplits(impression_avg_b, category_b, "clusterB")
     
+    # df = pd.DataFrame(cluster_a, columns=["id"])
+    # print("cluster_a table")
+    # print(df)
+    
+    # df = pd.DataFrame(cluster_b, columns=["id"])
+    # print("cluster_b table")
+    # print(df)
+    
+    # df = pd.DataFrame(cluster_c, columns=["id"])
+    # print("cluster_c table")
+    # print(df)
+    
+    # df = pd.DataFrame(cluster_d, columns=["id"])
+    # print("cluster_d table")
+    # print(df)
+    
     # Get the middle level cluster
-    cluster_a_m = imageClustering(cluster_a, l) if cluster_a != 0 else 0
-    cluster_b_m = imageClustering(cluster_b, l) if cluster_b != 0 else 0
-    cluster_c_m = imageClustering(cluster_c, l) if cluster_c != 0 else 0
-    cluster_d_m = imageClustering(cluster_d, l) if cluster_d != 0 else 0
+    cluster_a_m = imageClustering(cluster_a, l) if len(cluster_a) != 0 else 0
+    cluster_b_m = imageClustering(cluster_b, l) if len(cluster_b) != 0 else 0
+    cluster_c_m = imageClustering(cluster_c, l) if len(cluster_c) != 0 else 0
+    cluster_d_m = imageClustering(cluster_d, l) if len(cluster_d) != 0 else 0
 
     ans = []
-    if cluster_a_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
-    if cluster_b_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
-    if cluster_c_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
-    if cluster_d_m != 0: ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
+    if len(cluster_a_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_a_m, l)))
+    if len(cluster_b_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
+    if len(cluster_c_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
+    if len(cluster_d_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
     
     return ans
