@@ -28,28 +28,9 @@ class MyAPI {
         }
     }
 
-    func clusteringResultGet(data: Any, responseClosure: @escaping([[[String: Any]]]) -> ()) {
-        let parameters = ["data": data]
-        var result: [[[String: Any]]] = []
-        Alamofire.request("http://127.0.0.1:8018/cluster", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
-            guard let object = response.result.value else { return }
-            let json = JSON(object)
-            json.forEach { (_, json) in
-                var tmp: [[String: Any]] = []
-                json.forEach { (_, json) in
-                    let data: [String: Any] = ["id": json["id"].intValue, "tendency": json["tendency"].stringValue]
-                    tmp.append(data)
-                }
-                result.append(tmp)
-            }
-            responseClosure(result)
-        }
-    }
-// sunny-studio-254101.df.r.appspot.com/clustering
     func clustering(data: Any, responseClosure: @escaping([[String: [Int]]]) -> ()) {
         let parameters = ["data": data]
-        Alamofire.request("http://127.0.0.1:8018/clustering", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
+        Alamofire.request("http://sunny-studio-254101.df.r.appspot.com/clustering/clustering", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON {
             response in
             guard let obj = response.result.value else { return }
             let json = JSON(obj)
