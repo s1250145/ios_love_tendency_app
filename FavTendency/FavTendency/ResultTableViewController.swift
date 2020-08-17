@@ -78,8 +78,6 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.layer.cornerRadius = 25.0
 
         let cellText = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25), size: 15, text: result[indexPath.row]["tendency"] as! String)
-
-//        let cellImage = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.contentView.frame.width*0.7, height: cell.contentView.frame.width*0.7))
         let persons = result[indexPath.row]["persons"]! as! [Person]
         let cellImage = SetupObj.cellImage(image: persons[0].image.b64ToImage!)
 
@@ -97,14 +95,14 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.contentView.addSubview(viewMoreLabel)
 
         NSLayoutConstraint.activate([
-            cellText.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-            cellText.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 10),
             cellImage.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-            cellImage.topAnchor.constraint(equalTo: cellText.bottomAnchor, constant: 10),
-            cellImage.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.4),
-            cellImage.heightAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.4),
-            viewMoreLabel.rightAnchor.constraint(equalTo: cell.rightAnchor, constant: -30),
-            viewMoreLabel.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: 5)
+            cellImage.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 10),
+            cellImage.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.5),
+            cellImage.heightAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.5),
+            cellText.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 75),
+            cellText.leftAnchor.constraint(equalTo: cellImage.rightAnchor, constant: 10),
+            viewMoreLabel.topAnchor.constraint(equalTo: cellText.bottomAnchor, constant: 10),
+            viewMoreLabel.leftAnchor.constraint(equalTo: cellImage.rightAnchor, constant: 10)
         ])
         return cell
     }
