@@ -35,8 +35,8 @@ class TendencyViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(tendencyList)
 
         let backButton = UIButton(frame: CGRect.zero)
-        backButton.setTitle("もどる", for: .normal)
-        backButton.setTitleColor(.blue, for: .normal)
+        backButton.setTitle("< 戻る", for: .normal)
+        backButton.setTitleColor(UIColor.luvColor.mainColor, for: .normal)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backButtonTapped(sender:)), for: .touchUpInside)
         view.addSubview(backButton)
