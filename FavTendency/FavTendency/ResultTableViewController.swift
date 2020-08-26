@@ -77,7 +77,10 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.backgroundColor = UIColor.luvColor.mainColor
         cell.layer.cornerRadius = 25.0
 
-        let cellText = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25), size: 15, text: result[indexPath.row]["tendency"] as! String)
+        let cellText = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: 0, height: 18), size: 15, text: result[indexPath.row]["tendency"] as! String)
+        cellText.numberOfLines = 2
+        cellText.sizeToFit()
+        cellText.lineBreakMode = .byWordWrapping
         let persons = result[indexPath.row]["persons"]! as! [Person]
         let cellImage = SetupObj.cellImage(image: persons[0].image.b64ToImage!)
 
@@ -95,12 +98,13 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.contentView.addSubview(viewMoreLabel)
 
         NSLayoutConstraint.activate([
-            cellImage.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+            cellImage.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 17.25),
             cellImage.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 10),
             cellImage.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.5),
             cellImage.heightAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.5),
             cellText.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 75),
             cellText.leftAnchor.constraint(equalTo: cellImage.rightAnchor, constant: 10),
+            cellText.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.4),
             viewMoreLabel.topAnchor.constraint(equalTo: cellText.bottomAnchor, constant: 10),
             viewMoreLabel.leftAnchor.constraint(equalTo: cellImage.rightAnchor, constant: 10)
         ])

@@ -130,6 +130,7 @@ def elbow(x):
     l = []
     for i in range(1,len(x)):
         km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
+        print("elbow: ", x)
         km.fit(x)
         l.append(km.inertia_)
 
