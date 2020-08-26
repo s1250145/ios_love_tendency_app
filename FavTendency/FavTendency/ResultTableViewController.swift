@@ -41,7 +41,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
             heading.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height*0.08),
             resultList.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultList.topAnchor.constraint(equalTo: heading.bottomAnchor, constant: 10),
-            resultList.bottomAnchor.constraint(equalTo: oneMoreButton.topAnchor, constant: -5),
+            resultList.bottomAnchor.constraint(equalTo: oneMoreButton.topAnchor, constant: -10),
             resultList.widthAnchor.constraint(equalToConstant: view.frame.width*0.85),
             oneMoreButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             oneMoreButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
