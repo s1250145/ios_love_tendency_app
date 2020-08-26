@@ -178,6 +178,8 @@ class MainViewController: UIViewController {
     }
 
     @objc func finishButtonTapped(sender: UIButton) {
+        let indicator = Indicator()
+        indicator.show(view: self.view)
         let api = MyAPI()
         api.clustering(data: impressions, responseClosure: { (responce) in
             let vc = ResultTableViewController()
@@ -194,6 +196,7 @@ class MainViewController: UIViewController {
                 list.append(["tendency": tendency, "persons": tendPersons])
             }
             vc.result = list
+            indicator.hide(view: self.view)
             self.show(vc, sender: nil)
         })
     }
