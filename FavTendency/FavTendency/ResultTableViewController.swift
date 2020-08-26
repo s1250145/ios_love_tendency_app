@@ -44,7 +44,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
             resultList.bottomAnchor.constraint(equalTo: oneMoreButton.topAnchor, constant: -10),
             resultList.widthAnchor.constraint(equalToConstant: view.frame.width*0.85),
             oneMoreButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            oneMoreButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            oneMoreButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             oneMoreButton.widthAnchor.constraint(equalToConstant: view.frame.width*0.8)
         ])
 
@@ -78,7 +78,7 @@ class ResultTableViewController: UIViewController, UICollectionViewDelegate, UIC
         cell.layer.cornerRadius = 25.0
 
         let cellText = SetupObj.cellText(frame: CGRect(x: 0, y: 0, width: 0, height: 18), size: 15, text: result[indexPath.row]["tendency"] as! String)
-        cellText.numberOfLines = 2
+        cellText.numberOfLines = 3
         cellText.sizeToFit()
         cellText.lineBreakMode = .byWordWrapping
         let persons = result[indexPath.row]["persons"]! as! [Person]

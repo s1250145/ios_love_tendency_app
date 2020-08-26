@@ -127,10 +127,10 @@ def imageClustering(cluster, data):
 
 
 def elbow(x):
+    print("elbow: ", x)
     l = []
     for i in range(1,len(x)):
         km = KMeans(n_clusters=i, init="k-means++", n_init=10, max_iter=300, random_state=0)
-        print("elbow: ", x)
         km.fit(x)
         l.append(km.inertia_)
 
@@ -141,7 +141,7 @@ def elbow(x):
     elbow_k = 1
     for s in range(1, len(l)):
         if abs(l[s-1]-l[s]) < 0.1 and abs(l[s-1]-l[s]) > 0.01:
-            elbow_k = s-1
+            elbow_k = s
             break
         
     return elbow_k
