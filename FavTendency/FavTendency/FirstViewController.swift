@@ -89,8 +89,6 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
 
         let cellImage = UIImageView(frame: CGRect.zero)
         cellImage.image = UIImage(named: image[indexPath.row])
-//        cellImage.layer.borderWidth = 5
-//        cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.translatesAutoresizingMaskIntoConstraints = false
 
         let cellCaption = UILabel(frame: CGRect.zero)
