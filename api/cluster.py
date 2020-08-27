@@ -66,12 +66,19 @@ def final_answer(user_tendency):
     with open('tendency_label.pickle', 'rb') as f:
         label = pickle.load(f)
     answer = []
+    keys = []
+    values = []
     for i in user_tendency:
         tendency = [j["label"] for j in label if j["symbol"] == i["symbol"]]
         if len(tendency) > 0:
-            keys = [tendency[0]]
-            value = [i["list"]]
-            answer.append(dict(zip(keys, value)))
+            if keys.count(tendency[0]) is 0:
+                keys.append(tendency[0])
+                values.append(i["list"])
+            else:
+                values[keys.index(tendency[0])].extend(i["list"])
+            
+    for (k, v) in zip(keys, values):
+        answer.append(dict(zip([k], [v])))
     return answer
 
 
@@ -111,9 +118,7 @@ def imageClustering(cluster, data):
         v = [j[1] for j in data if j[0] == i]
         l.append(v[0])
     vector = np.asarray(l)
-    print("length of vector: ", len(vector))
     k = elbow(vector)
-    print("value of k: ", k)
     kmeans = KMeans(n_clusters=k).fit(vector)
     label = kmeans.predict(vector)
     result = []
@@ -127,7 +132,6 @@ def imageClustering(cluster, data):
 
 
 def elbow(x):
-    print("elbow: ", x)
     if len(x) is 0: return 1
     
     l = []
@@ -137,9 +141,7 @@ def elbow(x):
         l.append(km.inertia_)
 
     if len(l) < 3: return 2
-    
-    print(l)        
-    
+        
     elbow_k = 1
     for s in range(1, len(l)):
         if abs(l[s-1]-l[s]) < 0.1 and abs(l[s-1]-l[s]) > 0.01:
@@ -164,22 +166,6 @@ def main(impression):
     cluster_a, cluster_b = averageSplits(impression_avg_a, category_a, "clusterA")
     cluster_c, cluster_d = averageSplits(impression_avg_b, category_b, "clusterB")
     
-    # df = pd.DataFrame(cluster_a, columns=["id"])
-    # print("cluster_a table")
-    # print(df)
-    
-    # df = pd.DataFrame(cluster_b, columns=["id"])
-    # print("cluster_b table")
-    # print(df)
-    
-    # df = pd.DataFrame(cluster_c, columns=["id"])
-    # print("cluster_c table")
-    # print(df)
-    
-    # df = pd.DataFrame(cluster_d, columns=["id"])
-    # print("cluster_d table")
-    # print(df)
-    
     # Get the middle level cluster
     cluster_a_m = imageClustering(cluster_a, l) if len(cluster_a) != 0 else 0
     cluster_b_m = imageClustering(cluster_b, l) if len(cluster_b) != 0 else 0
@@ -191,5 +177,4 @@ def main(impression):
     if len(cluster_b_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_b_m, l)))
     if len(cluster_c_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_c_m, l)))
     if len(cluster_d_m) != 0: ans.extend(final_answer(calculate_tf_icf(cluster_d_m, l)))
-    
     return ans
