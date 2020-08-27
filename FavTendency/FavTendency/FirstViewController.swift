@@ -11,8 +11,8 @@ import UIKit
 class FirstViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let splash = SprashView(frame: CGRect.zero)
 
-    let order = ["印象を選ぶ", "繰り返す", "結果を見る"]
-    let caption = ["スライドバーを動かして回答します", "印象回答しないと次の人に進めません", "その傾向にある人をさらにく詳しく見れます"]
+    let order = ["印象を選ぶ", "傾向を分析", "さらに詳しく"]
+    let caption = ["スライドバーを動かして回答します", "あなたの好みの傾向が複数表示されます", "その傾向にある人をさらにく詳しく見れます"]
     let image = ["Step1", "Step2", "Step3"]
 
     override func viewDidLoad() {
@@ -84,13 +84,13 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
 
         let cellText = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width*0.5, height: 25))
         cellText.text = order[indexPath.row]
-        cellText.font = UIFont.systemFont(ofSize: 25)
+        cellText.font = UIFont.systemFont(ofSize: 20)
         cellText.translatesAutoresizingMaskIntoConstraints = false
 
         let cellImage = UIImageView(frame: CGRect.zero)
         cellImage.image = UIImage(named: image[indexPath.row])
-        cellImage.layer.borderWidth = 5
-        cellImage.layer.borderColor = UIColor.white.cgColor
+//        cellImage.layer.borderWidth = 5
+//        cellImage.layer.borderColor = UIColor.white.cgColor
         cellImage.translatesAutoresizingMaskIntoConstraints = false
 
         let cellCaption = UILabel(frame: CGRect.zero)
@@ -108,8 +108,8 @@ class FirstViewController: UIViewController, UICollectionViewDelegate, UICollect
             cellText.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 10),
             cellImage.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
             cellImage.topAnchor.constraint(equalTo: cellText.bottomAnchor, constant: 5),
-            cellImage.heightAnchor.constraint(equalToConstant: cell.contentView.frame.height*0.5),
-            cellImage.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.6),
+            cellImage.heightAnchor.constraint(equalToConstant: cell.contentView.frame.height*0.6),
+            cellImage.widthAnchor.constraint(equalToConstant: cell.contentView.frame.width*0.7),
             cellCaption.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: 10),
             cellCaption.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor, constant: 25)
         ])
